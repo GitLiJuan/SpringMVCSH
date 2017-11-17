@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-10-24 16:06:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.company.dao.pojo.Detail" table="A_DETAIL">
+        <id name="detailId" type="int">
+            <column name="DETAIL_ID" />
+            <generator class="native" />
+        </id>
+        <property name="realname" type="java.lang.String">
+            <column name="REALNAME"  length="20" not-null="true"/>
+        </property>
+        <property name="birthday" type="date">
+            <column name="BIRTHDAY"  not-null="true"/>
+        </property>
+        <property name="balance" type="double" >
+            <column name="BALANCE" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

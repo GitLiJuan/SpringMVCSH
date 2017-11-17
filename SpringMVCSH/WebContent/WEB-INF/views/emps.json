@@ -1,0 +1,33 @@
+	[{
+				"dname": "HR",
+				"loc": "BeiJing",
+				"maxSal": 4000.0,
+				"minSal": 4000.0,
+				"avgSal": 4000.0,
+				"sumSal": 4000.0,
+				"counter": 1
+			}, {
+				"dname": "ACCOUNT",
+				"loc": "ShangHai",
+				"maxSal": 4000.0,
+				"minSal": 4000.0,
+				"avgSal": 4000.0,
+				"sumSal": 4000.0,
+				"counter": 1
+			}, {
+				"dname": "DEVELOP",
+				"loc": "DaLian",
+				"maxSal": 3500.0,
+				"minSal": 5500.0,
+				"avgSal": 4500.0,
+				"sumSal": 18000.0,
+				"counter": 4
+			}, {
+				"dname": "MARKET",
+				"loc": "GuangZhou",
+				"maxSal": 4000.0,
+				"minSal": 4000.0,
+				"avgSal": 4000.0,
+				"sumSal": 4000.0,
+				"counter": 1
+			}]

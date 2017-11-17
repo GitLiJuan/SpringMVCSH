@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">true</property>
+
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<property name="hibernate.connection.isolation">2</property>
+		
+		<property name="hibernate.use_identifier_rollback">true</property>
+		
+		<property name="hibernate.jdbc.fetch_size">100</property>
+		<property name="hibernate.jdbc.batch_size">30</property>
+		
+		<property name="cache.use_second_level_cache">true</property>
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<property name="cache.provider_configuration_file_resource_path">ehcache.xml</property>
+		<property name="cache.use_query_cache">true</property>
+				
+    </session-factory>
+</hibernate-configuration>

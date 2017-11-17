@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.company.dao.pojo.MyTest" table="A_TEST" 
+    select-before-update="true"
+    dynamic-insert="true" 
+    dynamic-update="true">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="hilo" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" not-null="true" length="20"/>
+        </property>
+        <property name="sal" type="double">
+            <column name="SAL" default="0.0"/>
+        </property>
+        <property name="mydate" type="date">
+            <column name="MYDATE" />
+        </property>
+        <property name="mytime" type="time">
+            <column name="MYTIME" />
+        </property>
+        <property name="myDateTime" type="timestamp">
+            <column name="MYDATETIME" />
+        </property>
+        <!-- 计算属性 -->
+        <property name="annualSal" formula="(select concat(name,':',sal*15) from a_test at where at.id = id)"></property>
+        
+        
+    </class>
+</hibernate-mapping>

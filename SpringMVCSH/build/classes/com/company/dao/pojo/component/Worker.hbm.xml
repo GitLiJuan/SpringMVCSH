@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-10-26 9:26:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.company.dao.pojo.component.Worker" table="A_WORKER">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String" column="NAME" not-null="true" length="20">
+        </property>
+
+        <component name="pay">
+        	<property name="sal" column="pay_sal"></property>
+        	<property name="comm" column="pay_comm"></property>
+        	<property name="holiday" column="pay_holiday"></property>
+        </component>
+    </class>
+</hibernate-mapping>

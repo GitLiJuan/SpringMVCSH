@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>报表页面</title>
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			* {
+				margin: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<button id="reportBtn" class="btn btn-success">获取报表</button>
+
+		<table class="table table-hover" style="display: none;">
+			<caption>员工信息</caption>
+			<thead>
+				<tr>
+					<th>部门</th>
+					<th>区域</th>
+					<th>最大工资</th>
+					<th>最小工资</th>
+					<th>平均工资</th>
+					<th>部门人数</th>
+					<th>总工资</th>
+				</tr>
+			</thead>
+			<tbody id="content">
+
+			</tbody>
+		</table>
+
+		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script>
+			$(function() {
+				$("#reportBtn").click(function() {
+
+					$("#content").empty();
+					$("table").show(1000);
+					$.ajax({
+						url: "emps.json",
+						type: "GET",
+						asynch: true,
+						success: function(data) {
+
+							for(var i=0;i<data.length;i++) {
+								var emp = data[i];
+								//1-创建tr节点
+								$tr = $(document.createElement("tr"));
+								for(j in emp) {
+									//2-创建td节点
+									$td = $(document.createElement("td"));
+									//3-向tr节点添加
+									$td.text(emp[j]);
+									$tr.append($td);
+								}
+								//4-向#content添加tr节点
+								$("#content").append($tr);
+							}
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

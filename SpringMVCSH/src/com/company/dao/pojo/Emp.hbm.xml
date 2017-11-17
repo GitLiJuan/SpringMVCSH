@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-10-25 8:22:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.company.dao.pojo.Emp" table="A_EMP" select-before-update="true">
+    	
+    	<cache usage="read-write"/>
+    
+        <id name="empno" type="int">
+            <column name="EMPNO" />
+            <generator class="native" />
+        </id>
+        <property name="ename" type="java.lang.String">
+            <column name="ENAME" not-null="true"/>
+        </property>
+        <property name="job" type="java.lang.String">
+            <column name="JOB" />
+        </property>
+        <property name="mgr" type="java.lang.Integer">
+            <column name="MGR" />
+        </property>
+        <property name="hiredate" type="date">
+            <column name="HIREDATE" />
+        </property>
+        <property name="sal" type="double">
+            <column name="SAL" />
+        </property>
+        <property name="comm" type="java.lang.Double">
+            <column name="COMM" />
+        </property>
+        <property name="deptno" type="java.lang.Integer">
+            <column name="DEPTNO" />
+        </property>
+    </class>
+    
+    <query name="empFindBySal"><![CDATA[from Emp e where e.sal>:minSal and e.sal<:maxSal]]></query>
+</hibernate-mapping>

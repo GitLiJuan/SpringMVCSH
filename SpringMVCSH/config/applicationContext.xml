@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 1-设定自动扫描组件的base package包 -->
+	<context:component-scan base-package="com.company"></context:component-scan>
+	
+	<!-- 2-读取c3p0db.properties的信息，生成数据源连接池dataSource -->
+	<context:property-placeholder location="classpath:c3p0db.properties"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${connection.driverClass}"></property>
+		<property name="jdbcUrl" value="${connection.url}"></property>
+		<property name="user" value="${connection.username}"></property>
+		<property name="password" value="${connection.password}"></property>
+		<property name="minPoolSize" value="${c3p0.min_size}"></property>
+		<property name="maxPoolSize" value="${c3p0.max_size}"></property>
+		<property name="acquireIncrement" value="${c3p0.acquire_increment}"></property>
+		<property name="checkoutTimeout" value="${c3p0.timeout}"></property>
+		<property name="idleConnectionTestPeriod" value="${c3p0.idle_test_period}"></property>
+		<property name="maxStatements" value="${c3p0.max_statements}"></property>
+	</bean>
+	
+	<!-- 3-依赖dataSource，生成sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<property name="mappingLocations" value="classpath:com/company/dao/pojo/*.hbm.xml"></property>
+	</bean>
+	
+	<!-- 4-应用Spring的AOP特性，完成对事务管理器的配置（应用注解方式Transactional） -->
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	
+	<!-- 2- 配置SpringMVC注解的应用，实现对动态资源的访问-->
+	<mvc:annotation-driven/>
+	
+	<!-- 3- 配置SpringMVC静态资源的访问 html,css,js,image-->
+	<mvc:default-servlet-handler/>
+	<!-- 配置路由 -->
+	<mvc:view-controller path="router_reg.do" view-name="registry"/>
+	<mvc:view-controller path="router_save.do" view-name="emp_save"/>
+	<mvc:view-controller path="router_report.do" view-name="redirect:/reportFromServer.html"/>
+	
+	<!-- 4- 配置视图解析器 /WEB-INF/views/*.jsp -->
+	
+	<bean	class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1"></property>
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"></entry>
+				<entry key="xml" value="application/xml"></entry>
+				<entry key="htm" value="text/htm"></entry>
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	
+</beans>
